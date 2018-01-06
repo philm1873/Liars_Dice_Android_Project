@@ -5,4 +5,15 @@ package com.example.codeclan.liarsdice;
  */
 
 public class Game {
+    int round;
+    User userPlayer;
+    Computer computerPlayer;
+
+    public Game() {
+        round = 1;
+        userPlayer = new User();
+        computerPlayer = new Computer();
+    }
+
+    
 }

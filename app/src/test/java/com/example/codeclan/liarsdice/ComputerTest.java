@@ -9,9 +9,6 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-/**
- * Created by user on 06/01/2018.
- */
 
 public class ComputerTest {
     private Computer testComputer;
