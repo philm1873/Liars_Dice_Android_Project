@@ -31,6 +31,13 @@ public abstract class Player {
         } return copy;
     }
 
+    public ArrayList<Integer> getDiceValues() {
+        ArrayList<Integer> values = new ArrayList<>();
+        for (Die item : dice) {
+            values.add(item.getFaceValue());
+        } return values;
+    }
+
     public int countDice() {
         return dice.size();
     }

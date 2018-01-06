@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -33,13 +34,21 @@ public class ComputerTest {
     }
 
     @Test
+    public void canCopyDice() {
+        ArrayList<Die> initialList = testComputer.copyDice();
+        assertEquals(5, initialList.size());
+    }
+
+    @Test
+    public void canGetDiceValues() {
+        ArrayList<Integer> testList = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1));
+        assertEquals(testList, testComputer.getDiceValues());
+    }
+
+    @Test
     public void canShakeDice() {
-        ArrayList<Die> initialList = new ArrayList<>();
-        for (Die item : testComputer.getDice()) {
-            Die copiedDie = new Die(item);
-            initialList.add(copiedDie);
-        }
+        ArrayList<Integer> initialList = testComputer.getDiceValues();
         testComputer.shakeDice();
-        assertNotEquals(initialList, testComputer.getDice());
+        assertNotEquals(initialList, testComputer.getDiceValues());
     }
 }

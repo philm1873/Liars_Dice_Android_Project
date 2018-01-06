@@ -10,8 +10,6 @@ import java.util.Collections;
 
 public class Die {
     private ArrayList<Integer> possibleValues;
-
-
     private Integer faceValue;
 
     public Die() {
