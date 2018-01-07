@@ -51,13 +51,13 @@ public class ComputerTest {
     }
 
     @Test
-    public void canRandomDieFace() {
-        assertNotNull(testComputer.randomDieFace());
+    public void canChooseDieFace() {
+        assertNotNull(testComputer.chooseDieFace());
     }
 
     @Test
-    public void canRandomDiceNumber() {
-        assertNotNull(testComputer.randomDiceNumber(10));
+    public void canChooseNumberOfDice() {
+        assertNotNull(testComputer.chooseNumberOfDice(10));
     }
 
     @Test
