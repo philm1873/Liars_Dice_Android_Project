@@ -20,6 +20,7 @@ public class Computer extends Player {
         ArrayList<Integer> choices = new ArrayList<>();
         choices.add(chooseDieFace());
         choices.add(chooseNumberOfDice(inputTotalDice));
+        choices.trimToSize();
         return choices;
     }
 }
