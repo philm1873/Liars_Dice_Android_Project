@@ -3,9 +3,6 @@ package com.example.codeclan.liarsdice;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by user on 06/01/2018.
- */
 
 public abstract class Player {
     private ArrayList<Die> dice;

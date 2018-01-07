@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class ComputerTest {
@@ -47,5 +48,20 @@ public class ComputerTest {
         ArrayList<Integer> initialList = testComputer.getDiceValues();
         testComputer.shakeDice();
         assertNotEquals(initialList, testComputer.getDiceValues());
+    }
+
+    @Test
+    public void canRandomDieFace() {
+        assertNotNull(testComputer.randomDieFace());
+    }
+
+    @Test
+    public void canRandomDiceNumber() {
+        assertNotNull(testComputer.randomDiceNumber(10));
+    }
+
+    @Test
+    public void canBid() {
+        assertEquals(2, testComputer.bid(10).size());
     }
 }
