@@ -5,6 +5,15 @@ import java.util.Random;
 
 
 public class Computer extends Player {
+    private ArrayList<Integer> guess;
+
+    public ArrayList<Integer> getGuess() {
+        return guess;
+    }
+
+    public void setGuess(ArrayList<Integer> guess) {
+        this.guess = guess;
+    }
 
     public Integer chooseDieFace() {
         Random rand = new Random();
@@ -16,11 +25,11 @@ public class Computer extends Player {
         return rand.nextInt(inputUpperBound) + 1;
     }
 
-    public ArrayList<Integer> bid(int inputTotalDice) {
+    public void bid(int inputTotalDice) {
         ArrayList<Integer> choices = new ArrayList<>();
         choices.add(chooseDieFace());
         choices.add(chooseNumberOfDice(inputTotalDice));
         choices.trimToSize();
-        return choices;
+        setGuess(choices);
     }
 }

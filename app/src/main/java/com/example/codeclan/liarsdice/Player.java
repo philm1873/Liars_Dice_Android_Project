@@ -20,6 +20,7 @@ public abstract class Player {
         return dice;
     }
 
+
     public ArrayList<Die> copyDice() {
         ArrayList<Die> copy = new ArrayList<>();
         for (Die item : dice) {

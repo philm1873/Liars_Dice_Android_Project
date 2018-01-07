@@ -5,17 +5,24 @@ package com.example.codeclan.liarsdice;
  */
 
 public class Game {
-    int round;
-    User userPlayer;
-    Computer computerPlayer;
-    int totalDice;
+    private int round;
+    private User userPlayer;
+    private Computer computerPlayer;
+    private int totalDice;
 
     public Game() {
-        round = 1;
+        round = 0;
         totalDice = 10;
         userPlayer = new User();
         computerPlayer = new Computer();
     }
 
+    public int getTotalDice() {
+        return totalDice;
+    }
+
+    public void evaluateWinner() {
+
+    }
 
 }
