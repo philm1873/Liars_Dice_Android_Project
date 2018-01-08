@@ -23,28 +23,32 @@ public class GameTest {
     public void canComputerGuessActualOccurrence() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
         testGame.getComputerPlayer().setGuess(guess);
-        assertEquals(10, testGame.guessActualOccurrence());
+        String playerRound = testGame.decideTurn();
+        assertEquals(10, testGame.guessActualOccurrence(playerRound));
     }
 
     @Test
     public void canComputerGuessActualOccurrenceNone() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
         testGame.getComputerPlayer().setGuess(guess);
-        assertEquals(0, testGame.guessActualOccurrence());
+        String playerRound = testGame.decideTurn();
+        assertEquals(0, testGame.guessActualOccurrence(playerRound));
     }
 
     @Test
     public void computerGuessTrue() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
         testGame.getComputerPlayer().setGuess(guess);
-        assertTrue(testGame.compareGuessesComputerTurn());
+        String playerRound = testGame.decideTurn();
+        assertTrue(testGame.compareGuesses(playerRound));
     }
 
     @Test
     public void computerGuessFalse() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
         testGame.getComputerPlayer().setGuess(guess);
-        assertFalse(testGame.compareGuessesComputerTurn());
+        String playerRound = testGame.decideTurn();
+        assertFalse(testGame.compareGuesses(playerRound));
     }
 
     @Test
@@ -65,7 +69,8 @@ public class GameTest {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(true);
-        assertEquals("You win!", testGame.decideWinner());
+        String playerRound = testGame.decideTurn();
+        assertEquals("You win!", testGame.decideWinner(playerRound));
         assertEquals(4, testGame.getComputerPlayer().countDice());
     }
 
@@ -74,7 +79,8 @@ public class GameTest {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(false);
-        assertEquals("Computer wins!", testGame.decideWinner());
+        String playerRound = testGame.decideTurn();
+        assertEquals("Computer wins!", testGame.decideWinner(playerRound));
         assertEquals(4, testGame.getUserPlayer().countDice());
     }
 
@@ -83,7 +89,8 @@ public class GameTest {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(false);
-        assertEquals("You win!", testGame.decideWinner());
+        String playerRound = testGame.decideTurn();
+        assertEquals("You win!", testGame.decideWinner(playerRound));
         assertEquals(4, testGame.getComputerPlayer().countDice());
     }
 
@@ -92,7 +99,8 @@ public class GameTest {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(true);
-        assertEquals("Computer wins!", testGame.decideWinner());
+        String playerRound = testGame.decideTurn();
+        assertEquals("Computer wins!", testGame.decideWinner(playerRound));
         assertEquals(4, testGame.getUserPlayer().countDice());
     }
 }
