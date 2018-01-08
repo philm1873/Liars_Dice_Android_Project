@@ -1,17 +1,13 @@
 package com.example.codeclan.liarsdice;
 
-/**
- * Created by user on 06/01/2018.
- */
 
 public class Game {
     private int round;
     private User userPlayer;
     private Computer computerPlayer;
-    private int totalDice;
+    private Player playerTurn;
 
     public Game() {
-        totalDice = 10;
         userPlayer = new User();
         computerPlayer = new Computer();
     }
@@ -24,62 +20,61 @@ public class Game {
         return computerPlayer;
     }
 
-    public int getTotalDice() {
-        return totalDice;
+    public Player getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(Player playerTurn) {
+        this.playerTurn = playerTurn;
     }
 
     public void increaseRound() {
         round ++;
     }
 
-    public String decideTurn() {
-        if (round % 2 == 0) return "Computer";
-        return "User";
+    public void decideTurn() {
+        if (round % 2 == 0) {
+            setPlayerTurn(computerPlayer);
+        } else {
+            setPlayerTurn(userPlayer);
+        }
     }
 
-    public int guessActualOccurrence(String inputTurn) {
-        int guessedValue;
-        if (inputTurn.equals("Computer")) {
-            guessedValue = computerPlayer.getGuess().get(0);
-        } else {
-            guessedValue = userPlayer.getGuess().get(0);
-        }
+    public int guessActualOccurrence() {
+        Integer guessedValue = playerTurn.getGuessFaceValue();
         int occurrence = userPlayer.countOccurrenceOfValue(guessedValue)
                 + computerPlayer.countOccurrenceOfValue(guessedValue);
         return occurrence;
     }
 
 
-    public boolean compareGuesses(String inputTurn) {
-        if (inputTurn.equals("Computer")) {
-            if (guessActualOccurrence(inputTurn) == computerPlayer.getGuess().get(1))
-                return true;
-        } else {
-            if (guessActualOccurrence(inputTurn) == userPlayer.getGuess().get(1))
-                return true;
+    public boolean verifyGuessCorrect() {
+        return guessActualOccurrence() == playerTurn.getGuessFaceOccurrence();
+    }
+
+    public Player getRespondingPlayer() {
+        if (playerTurn == computerPlayer) {
+            return userPlayer;
         }
-        return false;
+        return computerPlayer;
+    }
+
+    public String announceWinner(Player inputPlayer) {
+       if (inputPlayer == computerPlayer) {
+           return "Computer wins!";
+       }
+       return "You win!";
     }
 
 
-    public String decideWinner(String inputTurn) {
-        totalDice--;
-        switch (inputTurn) {
-            case "User":
-                if (computerPlayer.isResponse() == compareGuesses(inputTurn)) {
-                    userPlayer.removeDie();
-                    return "Computer wins!";
-                }
-                break;
-            case "Computer":
-                if (userPlayer.isResponse() != compareGuesses(inputTurn)) {
-                    userPlayer.removeDie();
-                    return "Computer wins!";
-                }
-                break;
+    public Player decideWinner() {
+        Player respondingPlayer = getRespondingPlayer();
+        if (respondingPlayer.response == verifyGuessCorrect()) {
+            playerTurn.removeDie();
+            return respondingPlayer;
         }
-        computerPlayer.removeDie();
-        return "You win!";
+        respondingPlayer.removeDie();
+        return playerTurn;
     }
 
 

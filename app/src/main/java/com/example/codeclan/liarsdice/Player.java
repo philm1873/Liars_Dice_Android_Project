@@ -39,13 +39,22 @@ public abstract class Player {
         return dice;
     }
 
+    public Integer getGuessFaceValue() {
+        return guess.get(0);
+    }
+
+    public Integer getGuessFaceOccurrence() {
+        return guess.get(1);
+    }
+
 
     public ArrayList<Die> copyDice() {
         ArrayList<Die> copy = new ArrayList<>();
         for (Die item : dice) {
             Die copiedDie = new Die(item);
             copy.add(copiedDie);
-        } return copy;
+        }
+        return copy;
     }
 
     public ArrayList<Integer> getDiceValues() {

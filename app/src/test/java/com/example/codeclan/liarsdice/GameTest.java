@@ -22,46 +22,48 @@ public class GameTest {
     @Test
     public void canComputerGuessActualOccurrence() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
+        testGame.decideTurn();
         testGame.getComputerPlayer().setGuess(guess);
-        String playerRound = testGame.decideTurn();
-        assertEquals(10, testGame.guessActualOccurrence(playerRound));
+        assertEquals(10, testGame.guessActualOccurrence());
     }
 
     @Test
     public void canComputerGuessActualOccurrenceNone() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
+        testGame.decideTurn();
         testGame.getComputerPlayer().setGuess(guess);
-        String playerRound = testGame.decideTurn();
-        assertEquals(0, testGame.guessActualOccurrence(playerRound));
+        assertEquals(0, testGame.guessActualOccurrence());
     }
 
     @Test
     public void computerGuessTrue() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
+        testGame.decideTurn();
         testGame.getComputerPlayer().setGuess(guess);
-        String playerRound = testGame.decideTurn();
-        assertTrue(testGame.compareGuesses(playerRound));
+        assertTrue(testGame.verifyGuessCorrect());
     }
 
     @Test
     public void computerGuessFalse() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
+        testGame.decideTurn();
         testGame.getComputerPlayer().setGuess(guess);
-        String playerRound = testGame.decideTurn();
-        assertFalse(testGame.compareGuesses(playerRound));
+        assertFalse(testGame.verifyGuessCorrect());
     }
 
     @Test
     public void canDecideTurnUser() {
         testGame.increaseRound();
-        assertEquals("User", testGame.decideTurn());
+        testGame.decideTurn();
+        assertEquals(testGame.getUserPlayer(), testGame.getPlayerTurn());
     }
 
     @Test
     public void canDecideTurnComputer() {
         testGame.increaseRound();
         testGame.increaseRound();
-        assertEquals("Computer", testGame.decideTurn());
+        testGame.decideTurn();
+        assertEquals(testGame.getComputerPlayer(), testGame.getPlayerTurn());
     }
 
     @Test
@@ -69,8 +71,9 @@ public class GameTest {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(true);
-        String playerRound = testGame.decideTurn();
-        assertEquals("You win!", testGame.decideWinner(playerRound));
+        testGame.decideTurn();
+        Player winner = testGame.decideWinner();
+        assertEquals("You win!", testGame.announceWinner(winner));
         assertEquals(4, testGame.getComputerPlayer().countDice());
     }
 
@@ -79,8 +82,9 @@ public class GameTest {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(false);
-        String playerRound = testGame.decideTurn();
-        assertEquals("Computer wins!", testGame.decideWinner(playerRound));
+        testGame.decideTurn();
+        Player winner = testGame.decideWinner();
+        assertEquals("Computer wins!", testGame.announceWinner(winner));
         assertEquals(4, testGame.getUserPlayer().countDice());
     }
 
@@ -89,8 +93,9 @@ public class GameTest {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(false);
-        String playerRound = testGame.decideTurn();
-        assertEquals("You win!", testGame.decideWinner(playerRound));
+        testGame.decideTurn();
+        Player winner = testGame.decideWinner();
+        assertEquals("You win!", testGame.announceWinner(winner));
         assertEquals(4, testGame.getComputerPlayer().countDice());
     }
 
@@ -99,8 +104,9 @@ public class GameTest {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(true);
-        String playerRound = testGame.decideTurn();
-        assertEquals("Computer wins!", testGame.decideWinner(playerRound));
+        testGame.decideTurn();
+        Player winner = testGame.decideWinner();
+        assertEquals("Computer wins!", testGame.announceWinner(winner));
         assertEquals(4, testGame.getUserPlayer().countDice());
     }
 
@@ -109,8 +115,9 @@ public class GameTest {
         testGame.getUserPlayer().bid(1, 3);
         testGame.getComputerPlayer().setResponse(false);
         testGame.increaseRound();
-        String playerRound = testGame.decideTurn();
-        assertEquals("Computer wins!", testGame.decideWinner(playerRound));
+        testGame.decideTurn();
+        Player winner = testGame.decideWinner();
+        assertEquals("Computer wins!", testGame.announceWinner(winner));
         assertEquals(4, testGame.getUserPlayer().countDice());
     }
 
@@ -119,8 +126,9 @@ public class GameTest {
         testGame.getUserPlayer().bid(1, 10);
         testGame.getComputerPlayer().setResponse(false);
         testGame.increaseRound();
-        String playerRound = testGame.decideTurn();
-        assertEquals("You win!", testGame.decideWinner(playerRound));
+        testGame.decideTurn();
+        Player winner = testGame.decideWinner();
+        assertEquals("You win!", testGame.announceWinner(winner));
         assertEquals(4, testGame.getComputerPlayer().countDice());
     }
 
@@ -129,8 +137,9 @@ public class GameTest {
         testGame.getUserPlayer().bid(1, 10);
         testGame.getComputerPlayer().setResponse(true);
         testGame.increaseRound();
-        String playerRound = testGame.decideTurn();
-        assertEquals("Computer wins!", testGame.decideWinner(playerRound));
+        testGame.decideTurn();
+        Player winner = testGame.decideWinner();
+        assertEquals("Computer wins!", testGame.announceWinner(winner));
         assertEquals(4, testGame.getUserPlayer().countDice());
     }
 
@@ -139,8 +148,9 @@ public class GameTest {
         testGame.getUserPlayer().bid(3, 10);
         testGame.getComputerPlayer().setResponse(true);
         testGame.increaseRound();
-        String playerRound = testGame.decideTurn();
-        assertEquals("You win!", testGame.decideWinner(playerRound));
+        testGame.decideTurn();
+        Player winner = testGame.decideWinner();
+        assertEquals("You win!", testGame.announceWinner(winner));
         assertEquals(4, testGame.getComputerPlayer().countDice());
     }
 }
