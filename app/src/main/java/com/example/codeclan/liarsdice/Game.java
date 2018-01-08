@@ -11,7 +11,6 @@ public class Game {
     private int totalDice;
 
     public Game() {
-        round = 0;
         totalDice = 10;
         userPlayer = new User();
         computerPlayer = new Computer();
@@ -53,23 +52,34 @@ public class Game {
 
     public boolean compareGuesses(String inputTurn) {
         if (inputTurn.equals("Computer")) {
-            if (guessActualOccurrence(inputTurn) == computerPlayer.getGuess().get(1)) return true;
+            if (guessActualOccurrence(inputTurn) == computerPlayer.getGuess().get(1))
+                return true;
         } else {
-            if (guessActualOccurrence(inputTurn) == userPlayer.getGuess().get(1)) return true;
+            if (guessActualOccurrence(inputTurn) == userPlayer.getGuess().get(1))
+                return true;
         }
         return false;
     }
 
 
     public String decideWinner(String inputTurn) {
-        if (userPlayer.isResponse() == compareGuesses(inputTurn)) {
-            computerPlayer.removeDie();
-            totalDice --;
-            return "You win!";
+        totalDice--;
+        switch (inputTurn) {
+            case "User":
+                if (computerPlayer.isResponse() == compareGuesses(inputTurn)) {
+                    userPlayer.removeDie();
+                    return "Computer wins!";
+                }
+                break;
+            case "Computer":
+                if (userPlayer.isResponse() != compareGuesses(inputTurn)) {
+                    userPlayer.removeDie();
+                    return "Computer wins!";
+                }
+                break;
         }
-        userPlayer.removeDie();
-        totalDice --;
-        return "Computer wins!";
+        computerPlayer.removeDie();
+        return "You win!";
     }
 
 

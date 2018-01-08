@@ -52,7 +52,8 @@ public abstract class Player {
         ArrayList<Integer> values = new ArrayList<>();
         for (Die item : dice) {
             values.add(item.getFaceValue());
-        } return values;
+        }
+        return values;
     }
 
     public int countOccurrenceOfValue(int inputValue) {
@@ -61,7 +62,8 @@ public abstract class Player {
             if (inputValue == value) {
                 valueOccurrence ++;
             }
-        } return valueOccurrence;
+        }
+        return valueOccurrence;
     }
 
     public int countDice() {
