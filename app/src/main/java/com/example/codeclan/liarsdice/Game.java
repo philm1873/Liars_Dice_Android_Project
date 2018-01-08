@@ -41,4 +41,9 @@ public class Game {
         return false;
     }
 
+    public String decideWinner() {
+        if (userPlayer.isResponse() == compareGuesses()) return "You win!";
+        return "Computer wins!";
+    }
+
 }

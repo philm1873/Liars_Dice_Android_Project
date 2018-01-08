@@ -46,4 +46,36 @@ public class GameTest {
         testGame.getComputerPlayer().setGuess(guess);
         assertFalse(testGame.compareGuesses());
     }
+
+    @Test
+    public void canDecideWinnerUserWinsCompGuessCorrect() {
+        ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
+        testGame.getComputerPlayer().setGuess(guess);
+        testGame.getUserPlayer().setResponse(true);
+        assertEquals("You win!", testGame.decideWinner());
+    }
+
+    @Test
+    public void canDecideWinnerUserLosesCompGuessCorrect() {
+        ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
+        testGame.getComputerPlayer().setGuess(guess);
+        testGame.getUserPlayer().setResponse(false);
+        assertEquals("Computer wins!", testGame.decideWinner());
+    }
+
+    @Test
+    public void canDecideWinnerUserWinsCompGuessWrong() {
+        ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
+        testGame.getComputerPlayer().setGuess(guess);
+        testGame.getUserPlayer().setResponse(false);
+        assertEquals("You win!", testGame.decideWinner());
+    }
+
+    @Test
+    public void canDecideWinnerUserLosesCompGuessWrong() {
+        ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
+        testGame.getComputerPlayer().setGuess(guess);
+        testGame.getUserPlayer().setResponse(true);
+        assertEquals("Computer wins!", testGame.decideWinner());
+    }
 }
