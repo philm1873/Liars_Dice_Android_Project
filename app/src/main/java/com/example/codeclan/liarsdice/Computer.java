@@ -16,6 +16,15 @@ public class Computer extends Player {
         return rand.nextInt(inputUpperBound) + 1;
     }
 
+    public boolean randomResponse() {
+        Random rand = new Random();
+        return rand.nextBoolean();
+    }
+
+    public void setResponse() {
+        this.response = randomResponse();
+    }
+
     public void bid(int inputTotalDice) {
         ArrayList<Integer> choices = new ArrayList<>();
         choices.add(chooseDieFace());

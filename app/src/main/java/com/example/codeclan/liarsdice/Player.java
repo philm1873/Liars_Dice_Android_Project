@@ -7,14 +7,8 @@ import java.util.Arrays;
 public abstract class Player {
     private ArrayList<Die> dice;
     private ArrayList<Integer> guess;
+    protected boolean response;
 
-    public ArrayList<Integer> getGuess() {
-        return guess;
-    }
-
-    public void setGuess(ArrayList<Integer> guess) {
-        this.guess = guess;
-    }
 
     public Player() {
         Die diceOne = new Die();
@@ -23,6 +17,22 @@ public abstract class Player {
         Die diceFour = new Die();
         Die diceFive = new Die();
         dice = new ArrayList<>(Arrays.asList(diceOne, diceTwo, diceThree, diceFour, diceFive));
+    }
+
+    public boolean isResponse() {
+        return response;
+    }
+
+    public void setResponse(boolean response) {
+        this.response = response;
+    }
+
+    public ArrayList<Integer> getGuess() {
+        return guess;
+    }
+
+    public void setGuess(ArrayList<Integer> guess) {
+        this.guess = guess;
     }
 
     public ArrayList<Die> getDice() {

@@ -9,6 +9,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 public class ComputerTest {
@@ -69,5 +70,16 @@ public class ComputerTest {
     @Test
     public void canCountOccurrenceOfValue() {
         assertEquals(5, testComputer.countOccurrenceOfValue(1));
+    }
+
+    @Test
+    public void canRandomResponse() {
+        ArrayList<Boolean> testList = new ArrayList<>();
+        for (int i = 1; i < 11; i++) {
+            Boolean listItem = new Boolean(testComputer.randomResponse());
+            testList.add(listItem);
+        }
+        assertTrue(testList.contains(true));
+        assertTrue(testList.contains(false));
     }
 }
