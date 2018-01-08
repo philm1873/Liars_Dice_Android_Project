@@ -65,4 +65,9 @@ public class ComputerTest {
         testComputer.bid(10);
         assertEquals(2, testComputer.getGuess().size());
     }
+
+    @Test
+    public void canCountOccurrenceOfValue() {
+        assertEquals(5, testComputer.countOccurrenceOfValue(1));
+    }
 }

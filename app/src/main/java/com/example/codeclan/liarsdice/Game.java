@@ -21,8 +21,10 @@ public class Game {
         return totalDice;
     }
 
-    public void evaluateWinner() {
-
+    public int computerGuessActualOccurrence(int guessedValue) {
+        int occurence = userPlayer.countOccurrenceOfValue(guessedValue)
+                + computerPlayer.countOccurrenceOfValue(guessedValue);
+        return occurence;
     }
 
 }

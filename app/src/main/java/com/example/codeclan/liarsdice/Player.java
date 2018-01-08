@@ -36,6 +36,15 @@ public abstract class Player {
         } return values;
     }
 
+    public int countOccurrenceOfValue(int inputValue) {
+        int valueOccurrence = 0;
+        for (int value : getDiceValues()) {
+            if (inputValue == value) {
+                valueOccurrence ++;
+            }
+        } return valueOccurrence;
+    }
+
     public int countDice() {
         return dice.size();
     }
