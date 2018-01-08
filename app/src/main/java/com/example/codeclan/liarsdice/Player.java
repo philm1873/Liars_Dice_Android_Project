@@ -6,6 +6,15 @@ import java.util.Arrays;
 
 public abstract class Player {
     private ArrayList<Die> dice;
+    private ArrayList<Integer> guess;
+
+    public ArrayList<Integer> getGuess() {
+        return guess;
+    }
+
+    public void setGuess(ArrayList<Integer> guess) {
+        this.guess = guess;
+    }
 
     public Player() {
         Die diceOne = new Die();

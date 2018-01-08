@@ -23,28 +23,41 @@ public class GameTest {
     public void canComputerGuessActualOccurrence() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
         testGame.getComputerPlayer().setGuess(guess);
-        assertEquals(10, testGame.computerGuessActualOccurrence());
+        assertEquals(10, testGame.guessActualOccurrence());
     }
 
     @Test
     public void canComputerGuessActualOccurrenceNone() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
         testGame.getComputerPlayer().setGuess(guess);
-        assertEquals(0, testGame.computerGuessActualOccurrence());
+        assertEquals(0, testGame.guessActualOccurrence());
     }
 
     @Test
     public void computerGuessTrue() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(1, 10));
         testGame.getComputerPlayer().setGuess(guess);
-        assertTrue(testGame.compareGuesses());
+        assertTrue(testGame.compareGuessesComputerTurn());
     }
 
     @Test
     public void computerGuessFalse() {
         ArrayList<Integer> guess = new ArrayList<>(Arrays.asList(2, 10));
         testGame.getComputerPlayer().setGuess(guess);
-        assertFalse(testGame.compareGuesses());
+        assertFalse(testGame.compareGuessesComputerTurn());
+    }
+
+    @Test
+    public void canDecideTurnUser() {
+        testGame.increaseRound();
+        assertEquals("User", testGame.decideTurn());
+    }
+
+    @Test
+    public void canDecideTurnComputer() {
+        testGame.increaseRound();
+        testGame.increaseRound();
+        assertEquals("Computer", testGame.decideTurn());
     }
 
     @Test
@@ -53,6 +66,7 @@ public class GameTest {
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(true);
         assertEquals("You win!", testGame.decideWinner());
+        assertEquals(4, testGame.getComputerPlayer().countDice());
     }
 
     @Test
@@ -61,6 +75,7 @@ public class GameTest {
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(false);
         assertEquals("Computer wins!", testGame.decideWinner());
+        assertEquals(4, testGame.getUserPlayer().countDice());
     }
 
     @Test
@@ -69,6 +84,7 @@ public class GameTest {
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(false);
         assertEquals("You win!", testGame.decideWinner());
+        assertEquals(4, testGame.getComputerPlayer().countDice());
     }
 
     @Test
@@ -77,5 +93,6 @@ public class GameTest {
         testGame.getComputerPlayer().setGuess(guess);
         testGame.getUserPlayer().setResponse(true);
         assertEquals("Computer wins!", testGame.decideWinner());
+        assertEquals(4, testGame.getUserPlayer().countDice());
     }
 }

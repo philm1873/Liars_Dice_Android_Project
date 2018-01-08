@@ -5,15 +5,6 @@ import java.util.Random;
 
 
 public class Computer extends Player {
-    private ArrayList<Integer> guess;
-
-    public ArrayList<Integer> getGuess() {
-        return guess;
-    }
-
-    public void setGuess(ArrayList<Integer> guess) {
-        this.guess = guess;
-    }
 
     public Integer chooseDieFace() {
         Random rand = new Random();

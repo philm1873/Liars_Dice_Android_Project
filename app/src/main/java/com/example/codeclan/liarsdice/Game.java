@@ -29,21 +29,50 @@ public class Game {
         return totalDice;
     }
 
-    public int computerGuessActualOccurrence() {
-        int guessedValue = computerPlayer.getGuess().get(0);
+    public void increaseRound() {
+        round ++;
+    }
+
+    public String decideTurn() {
+        if (round % 2 == 0) return "Computer";
+        return "User";
+    }
+
+    public int guessActualOccurrence() {
+        int guessedValue;
+        if (round % 2 == 0) {
+            guessedValue = computerPlayer.getGuess().get(0);
+        } else {
+            guessedValue = userPlayer.getGuess().get(0);
+        }
         int occurrence = userPlayer.countOccurrenceOfValue(guessedValue)
                 + computerPlayer.countOccurrenceOfValue(guessedValue);
         return occurrence;
     }
 
-    public boolean compareGuesses() {
-        if (computerGuessActualOccurrence() == computerPlayer.getGuess().get(1)) return true;
+
+    public boolean compareGuessesComputerTurn() {
+        if (guessActualOccurrence() == computerPlayer.getGuess().get(1)) return true;
         return false;
     }
 
+    public boolean compareGuessesUserTurn() {
+        if (guessActualOccurrence() == computerPlayer.getGuess().get(1)) return true;
+        return false;
+    }
+
+
     public String decideWinner() {
-        if (userPlayer.isResponse() == compareGuesses()) return "You win!";
+        if (userPlayer.isResponse() == compareGuessesComputerTurn()) {
+            computerPlayer.removeDie();
+            totalDice --;
+            return "You win!";
+        }
+        userPlayer.removeDie();
+        totalDice --;
         return "Computer wins!";
     }
+
+
 
 }
