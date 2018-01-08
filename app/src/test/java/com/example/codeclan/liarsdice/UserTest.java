@@ -47,4 +47,10 @@ public class UserTest {
         testUser.shakeDice();
         assertNotEquals(initialList, testUser.getDiceValues());
     }
+
+    @Test
+    public void canBid() {
+        testUser.bid(1, 3);
+        assertEquals(2, testUser.getGuess().size());
+    }
 }
