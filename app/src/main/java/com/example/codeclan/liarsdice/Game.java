@@ -37,7 +37,7 @@ public class Game {
     }
 
     public void decideTurn() {
-        if (round % 2 == 0) {
+        if (round % 2 == 1) {
             setPlayerTurn(computerPlayer);
         } else {
             setPlayerTurn(userPlayer);

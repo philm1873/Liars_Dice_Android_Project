@@ -48,8 +48,25 @@ public class GameActivity extends AppCompatActivity {
             userDice.addView(diceValue);
         }
 
+        if (game.getPlayerTurn() == game.getComputerPlayer()) {
+            if (game.getRound() == 1) {
+                ComputerTurnFragment firstFragment = new ComputerTurnFragment();
 
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, firstFragment).commit();
+            } else {
+                ComputerTurnFragment newFragment = new ComputerTurnFragment();
 
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, newFragment).commit();
+            }
+        }
 
+        if (game.getPlayerTurn() == game.getUserPlayer()) {
+            UserTurnFragment newFragment = new UserTurnFragment();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, newFragment).commit();
+        }
     }
 }

@@ -10,12 +10,11 @@ import android.view.ViewGroup;
  * Created by user on 10/01/2018.
  */
 
-public class ComputerTurnFragment extends Fragment {
+public class UserTurnFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.computer_turn_view, container, false);
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.user_turn_view, container, false);
     }
-
 }
