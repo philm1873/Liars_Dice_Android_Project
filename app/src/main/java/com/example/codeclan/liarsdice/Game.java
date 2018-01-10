@@ -12,6 +12,10 @@ public class Game {
         computerPlayer = new Computer();
     }
 
+    public int getRound() {
+        return round;
+    }
+
     public User getUserPlayer() {
         return userPlayer;
     }
@@ -75,6 +79,11 @@ public class Game {
         }
         respondingPlayer.removeDie();
         return playerTurn;
+    }
+
+    public void shakePlayersDice() {
+        computerPlayer.shakeDice();
+        userPlayer.shakeDice();
     }
 
 
