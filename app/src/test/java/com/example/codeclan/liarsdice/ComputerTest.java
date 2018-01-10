@@ -63,7 +63,7 @@ public class ComputerTest {
 
     @Test
     public void canBid() {
-        testComputer.bid(10);
+        testComputer.guess(10);
         assertEquals(2, testComputer.getGuess().size());
     }
 

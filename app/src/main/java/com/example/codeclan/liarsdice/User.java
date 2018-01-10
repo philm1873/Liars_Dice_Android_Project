@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class User extends Player {
 
-    public void bid(Integer inputFace, Integer inputTotalNumber) {
+    public void guess(Integer inputFace, Integer inputTotalNumber) {
         ArrayList<Integer> choices = new ArrayList<>();
         choices.add(inputFace);
         choices.add(inputTotalNumber);

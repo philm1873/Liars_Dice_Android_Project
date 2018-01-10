@@ -25,7 +25,7 @@ public class Computer extends Player {
         this.response = randomResponse();
     }
 
-    public void bid(int inputTotalDice) {
+    public void guess(int inputTotalDice) {
         ArrayList<Integer> choices = new ArrayList<>();
         choices.add(chooseDieFace());
         choices.add(chooseNumberOfDice(inputTotalDice));

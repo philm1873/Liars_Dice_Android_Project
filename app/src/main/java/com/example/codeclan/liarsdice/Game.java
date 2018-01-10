@@ -89,12 +89,12 @@ public class Game {
     }
 
     public ArrayList<Integer> totalDice() {
-        ArrayList<Integer> totalDice = new ArrayList<>();
         Integer diceSum = userPlayer.countDice() + computerPlayer.countDice();
+        ArrayList<Integer> totalDiceList = new ArrayList<>();
         for (Integer i = 1; i <= diceSum; i++) {
-            totalDice.add(i);
+            totalDiceList.add(i);
         }
-        return totalDice;
+        return totalDiceList;
     }
 
 

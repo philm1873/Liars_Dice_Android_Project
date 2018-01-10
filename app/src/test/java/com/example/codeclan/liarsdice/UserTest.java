@@ -50,7 +50,7 @@ public class UserTest {
 
     @Test
     public void canBid() {
-        testUser.bid(1, 3);
+        testUser.guess(1, 3);
         assertEquals(2, testUser.getGuess().size());
     }
 }

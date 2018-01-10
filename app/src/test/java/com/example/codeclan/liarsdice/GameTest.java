@@ -112,7 +112,7 @@ public class GameTest {
 
     @Test
     public void canDecideWinnerCompWinsUserGuessWrong() {
-        testGame.getUserPlayer().bid(1, 3);
+        testGame.getUserPlayer().guess(1, 3);
         testGame.getComputerPlayer().setResponse(false);
         testGame.increaseRound();
         testGame.decideTurn();
@@ -123,7 +123,7 @@ public class GameTest {
 
     @Test
     public void canDecideWinnerCompLosesUserGuessCorrect() {
-        testGame.getUserPlayer().bid(1, 10);
+        testGame.getUserPlayer().guess(1, 10);
         testGame.getComputerPlayer().setResponse(false);
         testGame.increaseRound();
         testGame.decideTurn();
@@ -134,7 +134,7 @@ public class GameTest {
 
     @Test
     public void canDecideWinnerCompWinsUserGuessCorrect() {
-        testGame.getUserPlayer().bid(1, 10);
+        testGame.getUserPlayer().guess(1, 10);
         testGame.getComputerPlayer().setResponse(true);
         testGame.increaseRound();
         testGame.decideTurn();
@@ -145,7 +145,7 @@ public class GameTest {
 
     @Test
     public void canDecideWinnerCompLosesUserGuessWrong() {
-        testGame.getUserPlayer().bid(3, 10);
+        testGame.getUserPlayer().guess(3, 10);
         testGame.getComputerPlayer().setResponse(true);
         testGame.increaseRound();
         testGame.decideTurn();

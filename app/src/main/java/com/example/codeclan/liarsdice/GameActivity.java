@@ -66,11 +66,13 @@ public class GameActivity extends AppCompatActivity {
         }
 
         if (game.getPlayerTurn() == game.getUserPlayer()) {
+            game.getUserPlayer().guess(1, 1);
             UserTurnFragment newFragment = new UserTurnFragment();
 
             ArrayList<Integer> dieValues = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-            Bundle args = new Bundle();
             ArrayList<Integer> diceNumber = game.totalDice();
+
+            Bundle args = new Bundle();
             args.putIntegerArrayList("dieValues", dieValues);
             args.putIntegerArrayList("diceNumber", diceNumber);
             newFragment.setArguments(args);
