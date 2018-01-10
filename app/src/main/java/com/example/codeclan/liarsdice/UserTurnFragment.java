@@ -25,8 +25,8 @@ public class UserTurnFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_turn_view, container, false);
 
-        Spinner dieValue = (Spinner) v.findViewById(R.id.die_face_spinner);
-        Spinner diceNumber = (Spinner) v.findViewById(R.id.number_dice_spinner);
+        Spinner dieValue = (Spinner) view.findViewById(R.id.die_face_spinner);
+        Spinner diceNumber = (Spinner) view.findViewById(R.id.number_dice_spinner);
 
         ArrayList<Integer> getDieValues = getArguments().getIntegerArrayList("dieValues");
         ArrayList<Integer> getDiceNumbers = getArguments().getIntegerArrayList("diceNumber");
