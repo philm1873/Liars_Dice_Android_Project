@@ -91,7 +91,7 @@ public class Game {
     public ArrayList<Integer> totalDice() {
         ArrayList<Integer> totalDice = new ArrayList<>();
         Integer diceSum = userPlayer.countDice() + computerPlayer.countDice();
-        for (Integer i = 1; i > diceSum; i++) {
+        for (Integer i = 1; i <= diceSum; i++) {
             totalDice.add(i);
         }
         return totalDice;

@@ -23,7 +23,7 @@ public class UserTurnFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.user_turn_view, container, false);
+        View view = inflater.inflate(R.layout.user_turn_view, container, false);
 
         Spinner dieValue = (Spinner) v.findViewById(R.id.die_face_spinner);
         Spinner diceNumber = (Spinner) v.findViewById(R.id.number_dice_spinner);
@@ -34,10 +34,10 @@ public class UserTurnFragment extends Fragment {
         Integer[] dieValuesArray = new Integer[6];
         Integer[] diceNumberArray = new Integer[getDiceNumbers.size()];
 
-        ArrayAdapter<Integer> dieValueAdapter = new ArrayAdapter<Integer>(getActivity(), 0,
-                getDieValues.toArray(dieValuesArray));
-        ArrayAdapter<Integer> diceNumberAdapter = new ArrayAdapter<Integer>(getActivity(), 0,
-                getDiceNumbers.toArray(diceNumberArray));
+        ArrayAdapter<Integer> dieValueAdapter = new ArrayAdapter<Integer>(getActivity(),
+                R.layout.support_simple_spinner_dropdown_item, getDieValues.toArray(dieValuesArray));
+        ArrayAdapter<Integer> diceNumberAdapter = new ArrayAdapter<Integer>(getActivity(),
+                R.layout.support_simple_spinner_dropdown_item, getDiceNumbers.toArray(diceNumberArray));
 
         dieValueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         diceNumberAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -45,7 +45,7 @@ public class UserTurnFragment extends Fragment {
         dieValue.setAdapter(dieValueAdapter);
         diceNumber.setAdapter(diceNumberAdapter);
 
-        return v;
+        return view;
 
     }
 

@@ -70,8 +70,9 @@ public class GameActivity extends AppCompatActivity {
 
             ArrayList<Integer> dieValues = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
             Bundle args = new Bundle();
+            ArrayList<Integer> diceNumber = game.totalDice();
             args.putIntegerArrayList("dieValues", dieValues);
-            args.putIntegerArrayList("diceNumber", game.totalDice());
+            args.putIntegerArrayList("diceNumber", diceNumber);
             newFragment.setArguments(args);
 
             getSupportFragmentManager().beginTransaction()

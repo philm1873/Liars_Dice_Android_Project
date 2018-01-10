@@ -153,4 +153,10 @@ public class GameTest {
         assertEquals("You win!", testGame.announceWinner(winner));
         assertEquals(4, testGame.getComputerPlayer().countDice());
     }
+
+    @Test
+    public void canGetTotalDice() {
+        ArrayList<Integer> test = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        assertEquals(test, testGame.totalDice());
+    }
 }
