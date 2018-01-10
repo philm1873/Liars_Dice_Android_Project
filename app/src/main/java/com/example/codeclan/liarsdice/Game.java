@@ -1,6 +1,8 @@
 package com.example.codeclan.liarsdice;
 
 
+import java.util.ArrayList;
+
 public class Game {
     private int round;
     private User userPlayer;
@@ -84,6 +86,15 @@ public class Game {
     public void shakePlayersDice() {
         computerPlayer.shakeDice();
         userPlayer.shakeDice();
+    }
+
+    public ArrayList<Integer> totalDice() {
+        ArrayList<Integer> totalDice = new ArrayList<>();
+        Integer diceSum = userPlayer.countDice() + computerPlayer.countDice();
+        for (Integer i = 1; i > diceSum; i++) {
+            totalDice.add(i);
+        }
+        return totalDice;
     }
 
 

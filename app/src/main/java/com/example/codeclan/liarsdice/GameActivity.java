@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class GameActivity extends AppCompatActivity {
     Game game;
     LinearLayout computerDice;
@@ -64,6 +67,12 @@ public class GameActivity extends AppCompatActivity {
 
         if (game.getPlayerTurn() == game.getUserPlayer()) {
             UserTurnFragment newFragment = new UserTurnFragment();
+
+            ArrayList<Integer> dieValues = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+            Bundle args = new Bundle();
+            args.putIntegerArrayList("dieValues", dieValues);
+            args.putIntegerArrayList("diceNumber", game.totalDice());
+            newFragment.setArguments(args);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, newFragment).commit();
