@@ -67,9 +67,20 @@ public class Game {
 
     public String announceWinner(Player inputPlayer) {
        if (inputPlayer == computerPlayer) {
-           return "Computer wins!";
+           if (playerTurn == computerPlayer) {
+               return "Computer wins! You responded to the computer's guess incorrectly.";
+           } else {
+               return "Computer wins! It responded to your guess correctly.";
+           }
        }
-       return "You win!";
+        if (inputPlayer == userPlayer) {
+            if (playerTurn == userPlayer) {
+                return "You win! Computer responded to your guess incorrectly.";
+            } else {
+                return "You win! You responded to its guess correctly.";
+            }
+        }
+       return "Failed to get Winner";
     }
 
 

@@ -89,8 +89,19 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         user.getGuess().set(indexPosition, inputValue);
     }
 
-    public Player onGuessButtonClicked(View view) {
+    public void onGuessButtonClicked(View view) {
         game.getComputerPlayer().setResponse();
-        return game.decideWinner();
+        Player winner = game.decideWinner();
+        String prettyWinner = game.announceWinner(winner);
+
+        AnnounceWinnerFragment newFragment = new AnnounceWinnerFragment();
+
+        Bundle args = new Bundle();
+        args.putString("winner", prettyWinner);
+
+        newFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, newFragment).commit();
     }
 }
