@@ -1,5 +1,6 @@
 package com.example.codeclan.liarsdice;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -119,5 +120,10 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, newFragment).commit();
+    }
+
+    public void onOkButtonClicked(View view) {
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
     }
 }
