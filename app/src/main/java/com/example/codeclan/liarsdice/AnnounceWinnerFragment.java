@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 public class AnnounceWinnerFragment extends Fragment {
     TextView winnerText;
+    Button gameEnder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -20,10 +22,18 @@ public class AnnounceWinnerFragment extends Fragment {
         View view = inflater.inflate(R.layout.announce_winner_view, container, false);
 
         winnerText = (TextView) view.findViewById(R.id.winner_text);
-
         String winner = getArguments().getString("winner");
-
         winnerText.setText(winner);
+
+        gameEnder = (Button) view.findViewById(R.id.ok_button);
+        gameEnder.setVisibility(View.INVISIBLE);
+
+        boolean gameOver = getArguments().getBoolean("gameOver");
+
+        if (gameOver) {
+            gameEnder.setVisibility(View.VISIBLE);
+        }
+
 
         return view;
     }

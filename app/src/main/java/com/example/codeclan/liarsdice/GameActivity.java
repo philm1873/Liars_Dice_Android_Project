@@ -3,6 +3,7 @@ package com.example.codeclan.liarsdice;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
     LinearLayout computerDice;
     LinearLayout userDice;
     TextView round;
+    Button shakeDice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         computerDice = (LinearLayout) findViewById(R.id.computer_dice);
         userDice = (LinearLayout) findViewById(R.id.user_dice);
         round = (TextView) findViewById(R.id.round_text);
+        shakeDice = (Button) findViewById(R.id.shake_dice_button);
 
         game = new Game();
 
@@ -41,7 +44,7 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
 
         for (Integer value : game.getComputerPlayer().getDiceValues()) {
             TextView diceValue = new TextView(this);
-            diceValue.setText("?");
+            diceValue.setText("[?]");
             computerDice.addView(diceValue);
         }
 
@@ -91,6 +94,14 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
 
     public void onGuessButtonClicked(View view) {
         game.getComputerPlayer().setResponse();
+        computerDice.removeAllViews();
+
+        for (Integer value : game.getComputerPlayer().getDiceValues()) {
+            TextView diceValue = new TextView(this);
+            diceValue.setText("[" + value.toString() + "]");
+            computerDice.addView(diceValue);
+        }
+
         Player winner = game.decideWinner();
         String prettyWinner = game.announceWinner(winner);
 
@@ -98,6 +109,11 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
 
         Bundle args = new Bundle();
         args.putString("winner", prettyWinner);
+
+        if (game.isGameOver()) {
+            args.putBoolean("gameOver", true);
+            shakeDice.setVisibility(View.GONE);
+        }
 
         newFragment.setArguments(args);
 

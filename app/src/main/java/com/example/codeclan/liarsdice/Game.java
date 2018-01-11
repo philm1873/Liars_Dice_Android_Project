@@ -8,6 +8,7 @@ public class Game {
     private User userPlayer;
     private Computer computerPlayer;
     private Player playerTurn;
+    private Player gameWinner;
 
     public Game() {
         userPlayer = new User();
@@ -106,6 +107,16 @@ public class Game {
             totalDiceList.add(i);
         }
         return totalDiceList;
+    }
+
+    public boolean isGameOver() {
+        if (userPlayer.getDice().size() == 0) {
+            return true;
+        }
+        if (computerPlayer.getDice().size() == 0) {
+            return true;
+        }
+        return false;
     }
 
 
