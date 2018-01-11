@@ -61,10 +61,20 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
             if (game.getRound() == 1) {
                 ComputerTurnFragment firstFragment = new ComputerTurnFragment();
 
+                Bundle args = new Bundle();
+                args.putString("computerGuess", game.getComputerPlayer().getPrettyGuess());
+
+                firstFragment.setArguments(args);
+
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.fragment_container, firstFragment).commit();
             } else {
                 ComputerTurnFragment newFragment = new ComputerTurnFragment();
+
+                Bundle args = new Bundle();
+                args.putString("computerGuess", game.getComputerPlayer().getPrettyGuess());
+
+                newFragment.setArguments(args);
 
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, newFragment).commit();

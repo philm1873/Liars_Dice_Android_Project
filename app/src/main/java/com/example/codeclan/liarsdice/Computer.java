@@ -25,6 +25,12 @@ public class Computer extends Player {
         this.response = randomResponse();
     }
 
+    public String getPrettyGuess() {
+        String guessDieFace = String.valueOf(getGuess().get(0));
+        String guessDiceNumber = String.valueOf(getGuess().get(1));
+        return "Computer's guess: " + guessDiceNumber + " " + guessDieFace + "'s";
+    }
+
     public void guess(int inputTotalDice) {
         ArrayList<Integer> choices = new ArrayList<>();
         choices.add(chooseDieFace());
