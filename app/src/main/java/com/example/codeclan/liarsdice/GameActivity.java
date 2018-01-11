@@ -1,10 +1,13 @@
 package com.example.codeclan.liarsdice;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,14 +48,20 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
 
         for (Integer value : game.getComputerPlayer().getDiceValues()) {
             TextView diceValue = new TextView(this);
-            diceValue.setText("[?]");
+            diceValue.setText("[ ? ]");
+            diceValue.setTextSize(40);
+            diceValue.setTextColor(Color.BLACK);
             computerDice.addView(diceValue);
+            computerDice.setGravity(Gravity.CENTER);
         }
 
         for (Integer value : game.getUserPlayer().getDiceValues()) {
             TextView diceValue = new TextView(this);
-            diceValue.setText("[" + value.toString() + "]");
+            diceValue.setText("[ " + value.toString() + " ]");
+            diceValue.setTextSize(40);
+            diceValue.setTextColor(Color.BLACK);
             userDice.addView(diceValue);
+            userDice.setGravity(Gravity.CENTER);
         }
 
         if (game.getPlayerTurn() == game.getComputerPlayer()) {
@@ -111,8 +120,11 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
 
         for (Integer value : game.getComputerPlayer().getDiceValues()) {
             TextView diceValue = new TextView(this);
-            diceValue.setText("[" + value.toString() + "]");
+            diceValue.setText("[ " + value.toString() + " ]");
+            diceValue.setTextSize(40);
+            diceValue.setTextColor(Color.BLACK);
             computerDice.addView(diceValue);
+            computerDice.setGravity(Gravity.CENTER);
         }
 
         Player winner = game.decideWinner();
@@ -145,8 +157,11 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
 
         for (Integer value : game.getComputerPlayer().getDiceValues()) {
             TextView diceValue = new TextView(this);
-            diceValue.setText("[" + value.toString() + "]");
+            diceValue.setText("[ " + value.toString() + " ]");
+            diceValue.setTextSize(40);
+            diceValue.setTextColor(Color.BLACK);
             computerDice.addView(diceValue);
+            computerDice.setGravity(Gravity.CENTER);
         }
 
         Player winner = game.decideWinner();
@@ -175,8 +190,11 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
 
         for (Integer value : game.getComputerPlayer().getDiceValues()) {
             TextView diceValue = new TextView(this);
-            diceValue.setText("[" + value.toString() + "]");
+            diceValue.setText("[ " + value.toString() + " ]");
+            diceValue.setTextSize(40);
+            diceValue.setTextColor(Color.BLACK);
             computerDice.addView(diceValue);
+            computerDice.setGravity(Gravity.CENTER);
         }
 
         Player winner = game.decideWinner();
@@ -197,4 +215,5 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, newFragment).commit();
     }
+
 }
