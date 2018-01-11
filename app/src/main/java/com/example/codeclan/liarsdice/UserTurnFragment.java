@@ -1,5 +1,6 @@
 package com.example.codeclan.liarsdice;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,10 +20,10 @@ import java.util.ArrayList;
 public class UserTurnFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     Spinner dieValue;
     Spinner diceNumber;
-    OnUserValuesSelectedListener mCallBack;
+    OnUserInputListener mCallBack;
 
-    public interface OnUserValuesSelectedListener {
-        public void getUserValues(Integer inputValue, int indexPosition);
+    public interface OnUserInputListener {
+        public void getUserValues(int indexPosition, Integer inputValue);
     }
 
 
@@ -56,14 +57,20 @@ public class UserTurnFragment extends Fragment implements AdapterView.OnItemSele
         return view;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallBack = (OnUserInputListener) activity;
+    }
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Integer userValue = (Integer) parent.getItemAtPosition(position);
-        if (view.getId() == R.id.die_face_spinner) {
-            mCallBack.getUserValues(userValue, 0);
+        Integer userValue = (Integer) parent.getSelectedItem();
+        if (parent.getId() == R.id.die_face_spinner) {
+            mCallBack.getUserValues(0, userValue);
         } else {
-            mCallBack.getUserValues(userValue, 1);
+            mCallBack.getUserValues(1, userValue);
         }
     }
 
@@ -71,4 +78,5 @@ public class UserTurnFragment extends Fragment implements AdapterView.OnItemSele
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

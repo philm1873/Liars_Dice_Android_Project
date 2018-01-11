@@ -11,4 +11,6 @@
     <string name="correct">Correct</string>
     <string name="incorrect">Incorrect</string>
     <string name="guess_button">Guess</string>
+    <string name="face">Face</string>
+    <string name="total_number">Total Number</string>
 </resources>
