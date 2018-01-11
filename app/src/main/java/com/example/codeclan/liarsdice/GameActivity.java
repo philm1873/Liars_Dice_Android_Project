@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements UserTurnFragment.OnUserValuesSelectedListener {
     Game game;
     LinearLayout computerDice;
     LinearLayout userDice;
@@ -80,5 +80,11 @@ public class GameActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, newFragment).commit();
         }
+    }
+
+    @Override
+    public void getUserValues(Integer inputValue, int indexPosition) {
+        User user = game.getUserPlayer();
+        user.getGuess().set(indexPosition, inputValue);
     }
 }

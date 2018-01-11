@@ -19,6 +19,11 @@ import java.util.ArrayList;
 public class UserTurnFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     Spinner dieValue;
     Spinner diceNumber;
+    OnUserValuesSelectedListener mCallBack;
+
+    public interface OnUserValuesSelectedListener {
+        public void getUserValues(Integer inputValue, int indexPosition);
+    }
 
 
     @Override
@@ -54,7 +59,12 @@ public class UserTurnFragment extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        Integer userValue = (Integer) parent.getItemAtPosition(position);
+        if (view.getId() == R.id.die_face_spinner) {
+            mCallBack.getUserValues(userValue, 0);
+        } else {
+            mCallBack.getUserValues(userValue, 1);
+        }
     }
 
     @Override
