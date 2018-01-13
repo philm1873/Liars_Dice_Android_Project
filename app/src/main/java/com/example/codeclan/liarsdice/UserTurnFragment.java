@@ -1,6 +1,7 @@
 package com.example.codeclan.liarsdice;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ public class UserTurnFragment extends Fragment implements AdapterView.OnItemSele
     OnUserInputListener mCallBack;
 
     public interface OnUserInputListener {
-        public void getUserValues(int indexPosition, Integer inputValue);
+        void getUserValues(int indexPosition, Integer inputValue);
     }
 
 
@@ -58,8 +59,9 @@ public class UserTurnFragment extends Fragment implements AdapterView.OnItemSele
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        GameActivity activity = (GameActivity) context;
         mCallBack = (OnUserInputListener) activity;
     }
 
