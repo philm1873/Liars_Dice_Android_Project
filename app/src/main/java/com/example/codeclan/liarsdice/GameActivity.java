@@ -41,69 +41,10 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         game.increaseRound();
         game.decideTurn();
         game.shakePlayersDice();
-        String roundString = "Round: " + Integer.toString(game.getRound());
-
-        round.setText(roundString);
-
-        for (Integer value : game.getComputerPlayer().getDiceValues()) {
-            TextView diceValue = new TextView(this);
-            diceValue.setText("[ ? ]");
-            diceValue.setTextSize(40);
-            diceValue.setTextColor(Color.BLACK);
-            computerDice.addView(diceValue);
-            computerDice.setGravity(Gravity.CENTER);
-        }
-
-        for (Integer value : game.getUserPlayer().getDiceValues()) {
-            TextView diceValue = new TextView(this);
-            diceValue.setText("[ " + value.toString() + " ]");
-            diceValue.setTextSize(40);
-            diceValue.setTextColor(Color.BLACK);
-            userDice.addView(diceValue);
-            userDice.setGravity(Gravity.CENTER);
-        }
-
-        if (game.getPlayerTurn() == game.getComputerPlayer()) {
-            int totalDice = game.totalDice().size();
-            game.getComputerPlayer().guess(totalDice);
-            if (game.getRound() == 1) {
-                ComputerTurnFragment firstFragment = new ComputerTurnFragment();
-
-                Bundle args = new Bundle();
-                args.putString("computerGuess", game.getComputerPlayer().getPrettyGuess());
-
-                firstFragment.setArguments(args);
-
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.fragment_container, firstFragment).commit();
-            } else {
-                ComputerTurnFragment newFragment = new ComputerTurnFragment();
-
-                Bundle args = new Bundle();
-                args.putString("computerGuess", game.getComputerPlayer().getPrettyGuess());
-
-                newFragment.setArguments(args);
-
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, newFragment).commit();
-            }
-        }
-
-        if (game.getPlayerTurn() == game.getUserPlayer()) {
-            game.getUserPlayer().guess(1, 1);
-            UserTurnFragment newFragment = new UserTurnFragment();
-
-            ArrayList<Integer> dieValues = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-            ArrayList<Integer> diceNumber = game.totalDice();
-
-            Bundle args = new Bundle();
-            args.putIntegerArrayList("dieValues", dieValues);
-            args.putIntegerArrayList("diceNumber", diceNumber);
-            newFragment.setArguments(args);
-
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, newFragment).commit();
-        }
+        setRoundText();
+        addComputerDiceToLayout();
+        addUserDiceToLayout();
+        addFragment();
     }
 
 
@@ -214,5 +155,76 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, newFragment).commit();
     }
+
+    public void setRoundText() {
+        String roundText = "Round: " + Integer.toString(game.getRound());
+        round.setText(roundText);
+    }
+
+    public void setTextViewFormats(TextView inputView) {
+        inputView.setTextColor(Color.BLACK);
+        inputView.setTextSize(40);
+    }
+
+    public void addComputerDiceToLayout() {
+        int numberOfDice = game.getComputerPlayer().countDice();
+        for (int i = 1; i <= numberOfDice; i++) {
+            TextView diceValue = new TextView(this);
+            diceValue.setText("[ ? ]");
+            setTextViewFormats(diceValue);
+            computerDice.addView(diceValue);
+            computerDice.setGravity(Gravity.CENTER);
+        }
+    }
+
+    public void addUserDiceToLayout() {
+        for (Integer value : game.getUserPlayer().getDiceValues()) {
+            TextView diceValue = new TextView(this);
+            diceValue.setText("[ " + value.toString() + " ]");
+            setTextViewFormats(diceValue);
+            userDice.addView(diceValue);
+            userDice.setGravity(Gravity.CENTER);
+        }
+    }
+
+    public void addComputerTurnFragment() {
+        int totalDice = game.totalDice().size();
+        game.getComputerPlayer().guess(totalDice);
+        ComputerTurnFragment newFragment = new ComputerTurnFragment();
+
+        Bundle args = new Bundle();
+        args.putString("computerGuess", game.getComputerPlayer().getPrettyGuess());
+
+        newFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, newFragment).commit();
+    }
+
+    public void addUserTurnFragment() {
+        game.getUserPlayer().guess(1, 1);
+        UserTurnFragment newFragment = new UserTurnFragment();
+
+        ArrayList<Integer> dieValues = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        ArrayList<Integer> diceNumber = game.totalDice();
+
+        Bundle args = new Bundle();
+        args.putIntegerArrayList("dieValues", dieValues);
+        args.putIntegerArrayList("diceNumber", diceNumber);
+        newFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, newFragment).commit();
+    }
+
+    public void addFragment() {
+        if (game.getPlayerTurn() == game.getComputerPlayer()) {
+            addComputerTurnFragment();
+        }
+        if (game.getPlayerTurn() == game.getUserPlayer()) {
+            addUserTurnFragment();
+        }
+    }
+
 
 }
