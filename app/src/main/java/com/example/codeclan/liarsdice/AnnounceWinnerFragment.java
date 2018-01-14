@@ -13,6 +13,7 @@ import android.widget.TextView;
  */
 
 public class AnnounceWinnerFragment extends Fragment {
+    TextView computerResponse;
     TextView winnerText;
     Button gameEnder;
 
@@ -20,6 +21,12 @@ public class AnnounceWinnerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.announce_winner_view, container, false);
+
+        if (getArguments().get("computerResponse") != null) {
+            computerResponse = (TextView) view.findViewById(R.id.computer_response_text);
+            String response = getArguments().getString("computerResponse");
+            computerResponse.setText(response);
+        }
 
         winnerText = (TextView) view.findViewById(R.id.winner_text);
         String winner = getArguments().getString("winner");

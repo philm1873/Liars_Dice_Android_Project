@@ -34,6 +34,12 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
 
     }
 
+    @Override
+    public void getUserValues(int indexPosition, Integer inputValue) {
+        User user = game.getUserPlayer();
+        user.getGuess().set(indexPosition, inputValue);
+    }
+
     public void onShakeDiceClick(View view) {
         computerDice.removeAllViews();
         userDice.removeAllViews();
@@ -42,48 +48,22 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         game.decideTurn();
         game.shakePlayersDice();
         setRoundText();
-        addComputerDiceToLayout();
+        addHiddenComputerDiceToLayout();
         addUserDiceToLayout();
-        addFragment();
+        addPlayerTurnFragment();
     }
 
-
-    @Override
-    public void getUserValues(int indexPosition, Integer inputValue) {
-        User user = game.getUserPlayer();
-        user.getGuess().set(indexPosition, inputValue);
-    }
 
     public void onGuessButtonClicked(View view) {
         game.getComputerPlayer().setResponse();
         computerDice.removeAllViews();
 
-        for (Integer value : game.getComputerPlayer().getDiceValues()) {
-            TextView diceValue = new TextView(this);
-            diceValue.setText("[ " + value.toString() + " ]");
-            diceValue.setTextSize(40);
-            diceValue.setTextColor(Color.BLACK);
-            computerDice.addView(diceValue);
-            computerDice.setGravity(Gravity.CENTER);
-        }
+        revealComputerDice();
 
         Player winner = game.decideWinner();
         String prettyWinner = game.announceWinner(winner);
 
-        AnnounceWinnerFragment newFragment = new AnnounceWinnerFragment();
-
-        Bundle args = new Bundle();
-        args.putString("winner", prettyWinner);
-
-        if (game.isGameOver()) {
-            args.putBoolean("gameOver", true);
-            shakeDice.setVisibility(View.GONE);
-        }
-
-        newFragment.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, newFragment).commit();
+        addAnnounceWinnerFragment(prettyWinner);
     }
 
     public void onOkButtonClicked(View view) {
@@ -95,65 +75,24 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         game.getUserPlayer().setResponse(true);
         computerDice.removeAllViews();
 
-        for (Integer value : game.getComputerPlayer().getDiceValues()) {
-            TextView diceValue = new TextView(this);
-            diceValue.setText("[ " + value.toString() + " ]");
-            diceValue.setTextSize(40);
-            diceValue.setTextColor(Color.BLACK);
-            computerDice.addView(diceValue);
-            computerDice.setGravity(Gravity.CENTER);
-        }
+        revealComputerDice();
 
         Player winner = game.decideWinner();
         String prettyWinner = game.announceWinner(winner);
 
-        AnnounceWinnerFragment newFragment = new AnnounceWinnerFragment();
-
-        Bundle args = new Bundle();
-        args.putString("winner", prettyWinner);
-
-        if (game.isGameOver()) {
-            args.putBoolean("gameOver", true);
-            shakeDice.setVisibility(View.GONE);
-        }
-
-        newFragment.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, newFragment).commit();
-
+        addAnnounceWinnerFragment(prettyWinner);
     }
 
     public void onIncorrectButtonClicked(View view) {
         game.getUserPlayer().setResponse(false);
         computerDice.removeAllViews();
 
-        for (Integer value : game.getComputerPlayer().getDiceValues()) {
-            TextView diceValue = new TextView(this);
-            diceValue.setText("[ " + value.toString() + " ]");
-            diceValue.setTextSize(40);
-            diceValue.setTextColor(Color.BLACK);
-            computerDice.addView(diceValue);
-            computerDice.setGravity(Gravity.CENTER);
-        }
+        revealComputerDice();
 
         Player winner = game.decideWinner();
         String prettyWinner = game.announceWinner(winner);
 
-        AnnounceWinnerFragment newFragment = new AnnounceWinnerFragment();
-
-        Bundle args = new Bundle();
-        args.putString("winner", prettyWinner);
-
-        if (game.isGameOver()) {
-            args.putBoolean("gameOver", true);
-            shakeDice.setVisibility(View.GONE);
-        }
-
-        newFragment.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, newFragment).commit();
+        addAnnounceWinnerFragment(prettyWinner);
     }
 
     public void setRoundText() {
@@ -166,7 +105,7 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         inputView.setTextSize(40);
     }
 
-    public void addComputerDiceToLayout() {
+    public void addHiddenComputerDiceToLayout() {
         int numberOfDice = game.getComputerPlayer().countDice();
         for (int i = 1; i <= numberOfDice; i++) {
             TextView diceValue = new TextView(this);
@@ -177,14 +116,23 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         }
     }
 
-    public void addUserDiceToLayout() {
-        for (Integer value : game.getUserPlayer().getDiceValues()) {
+    public void addDiceToLayout(Player inputPlayer, LinearLayout inputLayout) {
+        for (Integer value : inputPlayer.getDiceValues()) {
             TextView diceValue = new TextView(this);
-            diceValue.setText("[ " + value.toString() + " ]");
+            String diceValueString = "[ " + String.valueOf(value) + " ]";
+            diceValue.setText(diceValueString);
             setTextViewFormats(diceValue);
-            userDice.addView(diceValue);
-            userDice.setGravity(Gravity.CENTER);
+            inputLayout.addView(diceValue);
+            inputLayout.setGravity(Gravity.CENTER);
         }
+    }
+
+    public void addUserDiceToLayout() {
+        addDiceToLayout(game.getUserPlayer(), userDice);
+        }
+
+    public void revealComputerDice() {
+        addDiceToLayout(game.getComputerPlayer(), computerDice);
     }
 
     public void addComputerTurnFragment() {
@@ -217,7 +165,7 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
                 .replace(R.id.fragment_container, newFragment).commit();
     }
 
-    public void addFragment() {
+    public void addPlayerTurnFragment() {
         if (game.getPlayerTurn() == game.getComputerPlayer()) {
             addComputerTurnFragment();
         }
@@ -225,6 +173,34 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
             addUserTurnFragment();
         }
     }
+
+    public void addAnnounceWinnerFragment(String inputWinner) {
+        AnnounceWinnerFragment newFragment = new AnnounceWinnerFragment();
+
+        Bundle args = new Bundle();
+        args.putString("winner", inputWinner);
+
+        if (game.getPlayerTurn() == game.getUserPlayer()) {
+
+            boolean computerResponse = game.getComputerPlayer().isResponse();
+            String stringComputerResponse = String.valueOf(computerResponse);
+            String prettyComputerResponse = "Computer responded: " + stringComputerResponse;
+            args.putString("computerResponse", prettyComputerResponse);
+        }
+
+
+        if (game.isGameOver()) {
+            args.putBoolean("gameOver", true);
+            shakeDice.setVisibility(View.GONE);
+        }
+
+        newFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, newFragment).commit();
+    }
+
+
 
 
 }
