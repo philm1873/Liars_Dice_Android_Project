@@ -8,7 +8,6 @@ public class Game {
     private User userPlayer;
     private Computer computerPlayer;
     private Player playerTurn;
-    private Player gameWinner;
 
     public Game() {
         userPlayer = new User();
@@ -31,7 +30,7 @@ public class Game {
         return playerTurn;
     }
 
-    public void setPlayerTurn(Player playerTurn) {
+    private void setPlayerTurn(Player playerTurn) {
         this.playerTurn = playerTurn;
     }
 
@@ -47,7 +46,7 @@ public class Game {
         }
     }
 
-    public int guessActualOccurrence() {
+    int guessActualOccurrence() {
         Integer guessedValue = playerTurn.getGuessFaceValue();
         int occurrence = userPlayer.countOccurrenceOfValue(guessedValue)
                 + computerPlayer.countOccurrenceOfValue(guessedValue);
@@ -55,11 +54,11 @@ public class Game {
     }
 
 
-    public boolean verifyGuessCorrect() {
+    boolean verifyGuessCorrect() {
         return guessActualOccurrence() == playerTurn.getGuessFaceOccurrence();
     }
 
-    public Player getRespondingPlayer() {
+    private Player getRespondingPlayer() {
         if (playerTurn == computerPlayer) {
             return userPlayer;
         }

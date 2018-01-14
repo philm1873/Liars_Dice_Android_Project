@@ -7,10 +7,10 @@ import java.util.Arrays;
 public abstract class Player {
     private ArrayList<Die> dice;
     private ArrayList<Integer> guess;
-    protected boolean response;
+    boolean response;
 
 
-    public Player() {
+    Player() {
         Die diceOne = new Die();
         Die diceTwo = new Die();
         Die diceThree = new Die();
@@ -19,7 +19,7 @@ public abstract class Player {
         dice = new ArrayList<>(Arrays.asList(diceOne, diceTwo, diceThree, diceFour, diceFive));
     }
 
-    public boolean isResponse() {
+    public boolean getResponse() {
         return response;
     }
 
@@ -31,24 +31,24 @@ public abstract class Player {
         return guess;
     }
 
-    public void setGuess(ArrayList<Integer> guess) {
+    void setGuess(ArrayList<Integer> guess) {
         this.guess = guess;
     }
 
-    public ArrayList<Die> getDice() {
+    ArrayList<Die> getDice() {
         return dice;
     }
 
-    public Integer getGuessFaceValue() {
+    Integer getGuessFaceValue() {
         return guess.get(0);
     }
 
-    public Integer getGuessFaceOccurrence() {
+    Integer getGuessFaceOccurrence() {
         return guess.get(1);
     }
 
 
-    public ArrayList<Die> copyDice() {
+    ArrayList<Die> copyDice() {
         ArrayList<Die> copy = new ArrayList<>();
         for (Die item : dice) {
             Die copiedDie = new Die(item);
@@ -65,7 +65,7 @@ public abstract class Player {
         return values;
     }
 
-    public int countOccurrenceOfValue(int inputValue) {
+    int countOccurrenceOfValue(int inputValue) {
         int valueOccurrence = 0;
         for (int value : getDiceValues()) {
             if (inputValue == value) {
@@ -79,11 +79,11 @@ public abstract class Player {
         return dice.size();
     }
 
-    public void removeDie() {
+    void removeDie() {
         dice.remove(0);
     }
 
-    public void shakeDice() {
+    void shakeDice() {
         for (Die die : dice) {
             die.rollDie();
         }

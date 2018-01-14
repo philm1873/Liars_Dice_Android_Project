@@ -6,17 +6,17 @@ import java.util.Random;
 
 public class Computer extends Player {
 
-    public Integer chooseDieFace() {
+    Integer chooseDieFace() {
         Random rand = new Random();
         return rand.nextInt(6) + 1;
     }
 
-    public Integer chooseNumberOfDice(int inputUpperBound) {
+    Integer chooseNumberOfDice(int inputUpperBound) {
         Random rand = new Random();
         return rand.nextInt(inputUpperBound) + 1;
     }
 
-    public boolean randomResponse() {
+    boolean randomResponse() {
         Random rand = new Random();
         return rand.nextBoolean();
     }

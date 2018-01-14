@@ -1,4 +1,4 @@
-package com.example.codeclan.liarsdice;
+package com.example.codeclan.liarsdice.com.example.codeclan.androidclasses;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.codeclan.liarsdice.Game;
+import com.example.codeclan.liarsdice.Player;
+import com.example.codeclan.liarsdice.R;
+import com.example.codeclan.liarsdice.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,10 +30,10 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        computerDice = (LinearLayout) findViewById(R.id.computer_dice);
-        userDice = (LinearLayout) findViewById(R.id.user_dice);
-        round = (TextView) findViewById(R.id.round_text);
-        shakeDice = (Button) findViewById(R.id.shake_dice_button);
+        computerDice = findViewById(R.id.computer_dice);
+        userDice = findViewById(R.id.user_dice);
+        round = findViewById(R.id.round_text);
+        shakeDice = findViewById(R.id.shake_dice_button);
 
         game = new Game();
 
@@ -95,17 +100,17 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         addAnnounceWinnerFragment(prettyWinner);
     }
 
-    public void setRoundText() {
+    private void setRoundText() {
         String roundText = "Round: " + Integer.toString(game.getRound());
         round.setText(roundText);
     }
 
-    public void setTextViewFormats(TextView inputView) {
+    private void setTextViewFormats(TextView inputView) {
         inputView.setTextColor(Color.BLACK);
         inputView.setTextSize(40);
     }
 
-    public void addHiddenComputerDiceToLayout() {
+    private void addHiddenComputerDiceToLayout() {
         int numberOfDice = game.getComputerPlayer().countDice();
         for (int i = 1; i <= numberOfDice; i++) {
             TextView diceValue = new TextView(this);
@@ -116,7 +121,7 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         }
     }
 
-    public void addDiceToLayout(Player inputPlayer, LinearLayout inputLayout) {
+    private void addDiceToLayout(Player inputPlayer, LinearLayout inputLayout) {
         for (Integer value : inputPlayer.getDiceValues()) {
             TextView diceValue = new TextView(this);
             String diceValueString = "[ " + String.valueOf(value) + " ]";
@@ -127,15 +132,15 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         }
     }
 
-    public void addUserDiceToLayout() {
+    private void addUserDiceToLayout() {
         addDiceToLayout(game.getUserPlayer(), userDice);
         }
 
-    public void revealComputerDice() {
+    private void revealComputerDice() {
         addDiceToLayout(game.getComputerPlayer(), computerDice);
     }
 
-    public void addComputerTurnFragment() {
+    private void addComputerTurnFragment() {
         int totalDice = game.totalDice().size();
         game.getComputerPlayer().guess(totalDice);
         ComputerTurnFragment newFragment = new ComputerTurnFragment();
@@ -149,7 +154,7 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
                 .replace(R.id.fragment_container, newFragment).commit();
     }
 
-    public void addUserTurnFragment() {
+    private void addUserTurnFragment() {
         game.getUserPlayer().guess(1, 1);
         UserTurnFragment newFragment = new UserTurnFragment();
 
@@ -165,7 +170,7 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
                 .replace(R.id.fragment_container, newFragment).commit();
     }
 
-    public void addPlayerTurnFragment() {
+    private void addPlayerTurnFragment() {
         if (game.getPlayerTurn() == game.getComputerPlayer()) {
             addComputerTurnFragment();
         }
@@ -174,26 +179,22 @@ public class GameActivity extends AppCompatActivity implements UserTurnFragment.
         }
     }
 
-    public void addAnnounceWinnerFragment(String inputWinner) {
+    private void addAnnounceWinnerFragment(String inputWinner) {
         AnnounceWinnerFragment newFragment = new AnnounceWinnerFragment();
 
         Bundle args = new Bundle();
         args.putString("winner", inputWinner);
 
         if (game.getPlayerTurn() == game.getUserPlayer()) {
-
-            boolean computerResponse = game.getComputerPlayer().isResponse();
+            boolean computerResponse = game.getComputerPlayer().getResponse();
             String stringComputerResponse = String.valueOf(computerResponse);
             String prettyComputerResponse = "Computer responded: " + stringComputerResponse;
             args.putString("computerResponse", prettyComputerResponse);
         }
-
-
         if (game.isGameOver()) {
             args.putBoolean("gameOver", true);
             shakeDice.setVisibility(View.GONE);
         }
-
         newFragment.setArguments(args);
 
         getSupportFragmentManager().beginTransaction()

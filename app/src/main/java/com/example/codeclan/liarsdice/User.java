@@ -2,9 +2,6 @@ package com.example.codeclan.liarsdice;
 
 import java.util.ArrayList;
 
-/**
- * Created by user on 06/01/2018.
- */
 
 public class User extends Player {
 

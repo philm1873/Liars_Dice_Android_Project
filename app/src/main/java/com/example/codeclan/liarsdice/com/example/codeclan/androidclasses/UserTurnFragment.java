@@ -1,6 +1,5 @@
-package com.example.codeclan.liarsdice;
+package com.example.codeclan.liarsdice.com.example.codeclan.androidclasses;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,11 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 
+import com.example.codeclan.liarsdice.R;
+
 import java.util.ArrayList;
 
-/**
- * Created by user on 10/01/2018.
- */
 
 public class UserTurnFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     Spinner dieValue;
@@ -33,9 +31,9 @@ public class UserTurnFragment extends Fragment implements AdapterView.OnItemSele
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_turn_view, container, false);
 
-        dieValue = (Spinner) view.findViewById(R.id.die_face_spinner);
+        dieValue = view.findViewById(R.id.die_face_spinner);
         dieValue.setOnItemSelectedListener(this);
-        diceNumber = (Spinner) view.findViewById(R.id.number_dice_spinner);
+        diceNumber = view.findViewById(R.id.number_dice_spinner);
         diceNumber.setOnItemSelectedListener(this);
 
         ArrayList<Integer> getDieValues = getArguments().getIntegerArrayList("dieValues");
@@ -44,9 +42,9 @@ public class UserTurnFragment extends Fragment implements AdapterView.OnItemSele
         Integer[] dieValuesArray = new Integer[6];
         Integer[] diceNumberArray = new Integer[getDiceNumbers.size()];
 
-        ArrayAdapter<Integer> dieValueAdapter = new ArrayAdapter<Integer>(getActivity(),
+        ArrayAdapter<Integer> dieValueAdapter = new ArrayAdapter<>(getActivity(),
                 R.layout.support_simple_spinner_dropdown_item, getDieValues.toArray(dieValuesArray));
-        ArrayAdapter<Integer> diceNumberAdapter = new ArrayAdapter<Integer>(getActivity(),
+        ArrayAdapter<Integer> diceNumberAdapter = new ArrayAdapter<>(getActivity(),
                 R.layout.support_simple_spinner_dropdown_item, getDiceNumbers.toArray(diceNumberArray));
 
         dieValueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -61,8 +59,7 @@ public class UserTurnFragment extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        GameActivity activity = (GameActivity) context;
-        mCallBack = (OnUserInputListener) activity;
+        mCallBack = (GameActivity) context;
     }
 
 

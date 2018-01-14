@@ -1,4 +1,4 @@
-package com.example.codeclan.liarsdice;
+package com.example.codeclan.liarsdice.com.example.codeclan.androidclasses;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * Created by user on 10/01/2018.
- */
+import com.example.codeclan.liarsdice.R;
+
 
 public class ComputerTurnFragment extends Fragment {
     TextView computerGuessText;
@@ -20,7 +19,7 @@ public class ComputerTurnFragment extends Fragment {
         View view =  inflater.inflate(R.layout.computer_turn_view, container, false);
 
         String getComputerGuess = getArguments().getString("computerGuess");
-        computerGuessText = (TextView) view.findViewById(R.id.computer_guess_text);
+        computerGuessText = view.findViewById(R.id.computer_guess_text);
         computerGuessText.setText(getComputerGuess);
 
         return view;
